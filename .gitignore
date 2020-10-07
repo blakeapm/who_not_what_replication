@@ -1,0 +1,8 @@
+*full_text.csv
+*.DS_Store
+__pycache__/
+*.py[cod]
+*$py.class
+.Rhistory
+misc/
+.bash_profile
