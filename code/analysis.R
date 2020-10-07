@@ -1,12 +1,4 @@
-library(data.table)
-library(dplyr)
-library(forcats)
-library(data.table)
 library(ggplot2)
-library(ggjoy)
-library(dotwhisker)
-library(broom)
-library(ROCR)
 library(stargazer)
 
 data <- read.csv('../data/who_not_what.csv')
@@ -18,11 +10,17 @@ IVs <- c("Extreme", "Attack.Govt.", "User", "Rumors", "Retweets", "Mobilizing", 
 IV_names <- c("Extreme", "Govt. Attack", "User Attributes", "Rumors", "Retweets", "Mobilizing", "Political Humor", "Govt. Criticism", "Local Govt. Corruption", "Collective Action")
 types <- c(rep("Instructions", 7), rep("Content", 3))
 
-#data.scaled <- data %>% mutate_each_(funs(scale(.) %>% as.vector), vars=IVs)
-mod <- glm(report ~ Extreme + Attack.Govt. + User + Rumors + Retweets + Mobilizing + Political.Humor + GOV_CR + COR_LO + COL, family=binomial(link='logit'), data=data)#data=data.scaled)
+mod <- glm(report ~ Extreme + Attack.Govt. + User + Rumors + Retweets + Mobilizing + Political.Humor + GOV_CR + COR_LO + COL, family=binomial(link='logit'), data=data)
 
-summary(mod)
-stargazer(mod)
+## Save TeX table
+
+title <- "Logistic Regression Model for ``Reporting Up''"
+output <- capture.output(stargazer(mod, title=title, header=FALSE, omit = c("Constant", "(Intercept)"), table.placement = "H", omit.stat=c("rsq", "adj.rsq", "f", "ser", "ll", "aic"),dep.var.labels.include=FALSE, model.names=FALSE, covariate.labels=IV_names, column.labels=c('Report Up'), no.space=TRUE))
+output <- gsub("\\begin{tabular}", "\\resizebox{!}{.35\\paperheight}{\\begin{tabular}", output, fixed=TRUE)
+output <- gsub("\\end{tabular}", "\\end{tabular}}", output, fixed=TRUE)
+cat(output, file="../tables/reg_model.tex", sep="\n")
+
+## Coefficient Plot
 
 plot_df <- data.frame()
 conf <- confint(mod, level = 0.95)
@@ -40,7 +38,6 @@ for (i in 1:length(IVs)) {
 }
 
 plot_df$iv <- factor(plot_df$iv, levels = rev(c("Govt. Criticism", "Local Govt. Corruption", "Collective Action", "User Attributes", "Govt. Attack", "Political Humor", "Extreme",  "Rumors", "Retweets", "Mobilizing")))
-
 
 cbPalette <- c("#000000", "#009E73", "#E79F00", "#0072B2", "#D55E00", "#CC79A7", "#F0E442", "#9AD0F3", "#FFFFFF")
 shapes <- c(19, 17, 15, 18, 0, 1, 2, 3, 4)

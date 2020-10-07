@@ -6,3 +6,4 @@ __pycache__/
 .Rhistory
 misc/
 .bash_profile
+Rplots.pdf
