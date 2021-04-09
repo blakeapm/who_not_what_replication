@@ -7,7 +7,7 @@ data$report <- data$report_up
 data[data$report_data == 1, 'report'] <- 0
 
 IVs <- c("Extreme", "Attack.Govt.", "User", "Rumors", "Retweets", "Mobilizing", "Political.Humor", "GOV_CR", "COR_LO", "COL")
-IV_names <- c("Extreme", "Govt. Attack", "User Attributes", "Rumors", "Retweets", "Mobilizing", "Political Humor", "Govt. Criticism", "Local Govt. Corruption", "Collective Action")
+IV_names <- c("Extreme", "Govt. Attack", "User Attributes", "Rumours", "Retweets", "Mobilizing", "Political Humour", "Govt. Criticism", "Local Govt. Corruption", "Collective Action")
 types <- c(rep("Instructions", 7), rep("Content", 3))
 
 mod <- glm(report ~ Extreme + Attack.Govt. + User + Rumors + Retweets + Mobilizing + Political.Humor + GOV_CR + COR_LO + COL, family=binomial(link='logit'), data=data)
@@ -37,7 +37,7 @@ for (i in 1:length(IVs)) {
 	plot_df <- rbind(plot_df, vals)
 }
 
-plot_df$iv <- factor(plot_df$iv, levels = rev(c("Govt. Criticism", "Local Govt. Corruption", "Collective Action", "User Attributes", "Govt. Attack", "Political Humor", "Extreme",  "Rumors", "Retweets", "Mobilizing")))
+plot_df$iv <- factor(plot_df$iv, levels = rev(c("Govt. Criticism", "Local Govt. Corruption", "Collective Action", "User Attributes", "Govt. Attack", "Political Humour", "Extreme",  "Rumours", "Retweets", "Mobilizing")))
 
 cbPalette <- c("#000000", "#009E73", "#E79F00", "#0072B2", "#D55E00", "#CC79A7", "#F0E442", "#9AD0F3", "#FFFFFF")
 shapes <- c(19, 17, 15, 18, 0, 1, 2, 3, 4)
