@@ -18,9 +18,9 @@ Runtimes below are based on these specifications:
 - `analysis.R` runs all models and outputs every figure and table used in the paper and supplementary materials.
 	* Running time:
 		```
-    real	0m3.171s
-    user	0m1.409s
-    sys	0m0.211s
+		real	0m3.171s
+		user	0m1.409s
+		sys	0m0.211s
 		```
 	* Running R version 3.5.2 (2018-12-20), required packages:
 		```
