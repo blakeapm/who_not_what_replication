@@ -42,7 +42,7 @@ plot_df$iv <- factor(plot_df$iv, levels = rev(c("Govt. Criticism", "Local Govt. 
 cbPalette <- c("#000000", "#009E73", "#E79F00", "#0072B2", "#D55E00", "#CC79A7", "#F0E442", "#9AD0F3", "#FFFFFF")
 shapes <- c(19, 17, 15, 18, 0, 1, 2, 3, 4)
 
-ggplot(plot_df, aes(x=iv, y=beta, color=type)) +
+ggplot(plot_df, aes(x=iv, y=beta, color=type, shape=type)) +
 	geom_point(size = 2, position = position_dodge(0.9), stat="identity") +
 	geom_errorbar(aes(ymin = ci_bot, ymax = ci_top, color = type), position = position_dodge(0.9), width = 0) +
 	xlab("") +
